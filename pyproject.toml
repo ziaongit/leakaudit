@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leakaudit"
+version = "0.1.0"
+description = "Explanation-based label-leakage audit for tabular classifiers (SHAP + LIME + retraining checks)"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Zia Ullah"}, {name = "Wahab Khan"}]
+requires-python = ">=3.9"
+dependencies = ["numpy", "pandas", "scipy", "scikit-learn", "shap"]
+
+[project.optional-dependencies]
+boost = ["lightgbm", "xgboost"]
+lime = ["lime"]
