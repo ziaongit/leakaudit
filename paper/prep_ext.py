@@ -1,13 +1,14 @@
 """Second dataset: Kaggle 'Healthcare Provider Fraud Detection Analysis' (rohitrox).
 Provider-level labels (PotentialFraud Yes/No) come with the data and are NOT derived from the features.
 Claims are aggregated to one row per provider using the training files only."""
-import glob, numpy as np, pandas as pd
+import glob, os, numpy as np, pandas as pd
+DATA = os.environ.get('LEAKAUDIT_DATA', 'data')
 
 def find(d, key):
     f = [p for p in glob.glob(d + '/**/*.csv', recursive=True) if key.lower() in p.lower() and 'test' not in p.lower().split('/')[-1]]
     assert f, f'missing {key} in {d}'; return f[0]
 
-def load_ext(d='/mnt/user-data/uploads/PhD/Datasets/ProviderFraud', verbose=True):
+def load_ext(d=os.path.join(DATA, 'ProviderFraud'), verbose=True):
     lab = pd.read_csv([p for p in glob.glob(d + '/**/Train*.csv', recursive=True)
                        if not any(k in p for k in ('Beneficiary', 'Inpatient', 'Outpatient'))][0])
     ben = pd.read_csv(find(d, 'Train_Beneficiary')); ip = pd.read_csv(find(d, 'Train_Inpatient')); op = pd.read_csv(find(d, 'Train_Outpatient'))

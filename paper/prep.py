@@ -1,6 +1,7 @@
-import numpy as np, pandas as pd
+import os, numpy as np, pandas as pd
+DATA = os.environ.get('LEAKAUDIT_DATA', 'data')
 from sklearn.preprocessing import LabelEncoder
-def load(path='/mnt/user-data/uploads/PhD/Datasets/HealthcareProviders.csv', corr_filter=True, verbose=True):
+def load(path=os.path.join(DATA, 'HealthcareProviders.csv'), corr_filter=True, verbose=True):
     df=pd.read_csv(path)
     drop_cols=[c for c in df.columns if any(k in c.lower() for k in ['npi','name','address','city','zip','street'])]
     df.drop(columns=drop_cols,inplace=True,errors='ignore')

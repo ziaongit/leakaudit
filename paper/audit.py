@@ -69,7 +69,7 @@ def surrogate(X, y, depths=(1, 2, 3, 4)):
     return out
 
 def lime_stability(X, y, n_inst=30, reps=5, k=5):
-    sys.path.insert(0, '/home/claude/vendor/lime-0.2.0.1'); from lime.lime_tabular import LimeTabularExplainer
+    from lime.lime_tabular import LimeTabularExplainer
     Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, stratify=y, random_state=0)
     m = lgb.LGBMClassifier(n_estimators=300, learning_rate=0.05, random_state=0, verbose=-1, scale_pos_weight=(1 - y.mean()) / y.mean()).fit(Xtr, ytr)
     p = m.predict_proba(Xte)[:, 1]
